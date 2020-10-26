@@ -135,7 +135,7 @@ public class VarastoTest {
     @Test
     public void tulostusmuotoOikea() {
         String tulos = varasto.toString().replaceAll("[0-9\\.]", "");
-        String oikea = "saldo = 10, vielä tila 10".replaceAll("[0-9\\.]", "");
+        String oikea = "saldo = 10, vielä tilaa 10".replaceAll("[0-9\\.]", "");
 
         assertTrue("oikea:" + oikea + "    tulos:" + tulos, oikea.equals(tulos));
     }
