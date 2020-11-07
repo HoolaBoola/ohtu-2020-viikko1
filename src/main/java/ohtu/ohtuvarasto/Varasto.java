@@ -3,16 +3,26 @@ package ohtu.ohtuvarasto;
 public class Varasto {
 
     // --- piilotettu tietorakenteen toteutus: ---
-    private double tilavuus;  // paljonko varastoon mahtuu,  > 0
-    private double saldo;     // paljonko varastossa on nyt, >= 0
+    private double tilavuus = 0.0;  // paljonko varastoon mahtuu,  > 0
+    private double saldo = 0.0;     // paljonko varastossa on nyt, >= 0
 
     // --- konstruktorit: ---
     public Varasto(double tilavuus) {  // tilavuus on annettava
- 
+        if (tilavuus > 0.0) {
+            this.tilavuus = tilavuus;
+        } else {
+            this.tilavuus = 0.0;  // => käyttökelvoton varasto
+        }
+        saldo = 0;     // oletus: varasto on tyhjä
     }
 
     public Varasto(double tilavuus, double alkuSaldo) { // kuormitetaan
+        if (tilavuus > 0.0) {
+            this.tilavuus = tilavuus;
+        }
 
+        this.saldo = Math.max(0, Math.min(alkuSaldo, tilavuus));
+        
     }
 
     // --- ottavat aksessorit eli getterit: ---
@@ -30,10 +40,27 @@ public class Varasto {
 
     // --- asettavat aksessorit eli setterit: ---
     public void lisaaVarastoon(double maara) {
+        if (maara < 0) {
+            return;       // tällainen pikapoistuminenkin!
+        }
+        if (maara <= paljonkoMahtuu()) {
+            saldo = saldo + maara;          // ihan suoraan sellaisinaan
+        } else {
+            saldo = tilavuus;  // täyteen ja ylimäärä hukkaan!
+        }
     }
 
     public double otaVarastosta(double maara) {
-
+        if (maara < 0) {
+            return 0.0;   // tällainen pikapoistuminenkin!
+        }
+        if (maara > saldo) {
+            double kaikkiMitaVoidaan = saldo;
+            saldo = 0.0;               // ja tyhjäksi menee
+            return kaikkiMitaVoidaan;  // poistutaan saman tien
+        }
+        // jos tänne päästään, kaikki pyydetty voidaan antaa
+        saldo = saldo - maara;  // vähennetään annettava saldosta
         return maara;
     }
 
