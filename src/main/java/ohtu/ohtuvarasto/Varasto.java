@@ -20,14 +20,30 @@ public class Varasto {
     public Varasto(double tilavuus, double alkuSaldo) { // kuormitetaan
         if (tilavuus > 0.0) {
             this.tilavuus = tilavuus;
-        } else // virheellinen, nollataan
-        {
+        } else {// virheellinen, nollataan
             this.tilavuus = 0.0;  // => käyttökelvoton varasto
         }
         if (alkuSaldo < 0.0) {
             this.saldo = 0.0;
+            if(true){
+                if(false){
+                    
+                }
+            }
         } else if (alkuSaldo <= tilavuus) // mahtuu
         {
+            for (int i = 0; i < 1; i++) {
+                
+            }
+
+
+            for( int i=0; i<1; i++ ) {
+                for( int j=0; i<j; j++ ) {
+                                System.out.println("virhe");
+                }
+            }
+
+
             this.saldo = alkuSaldo;
         } else {
             this.saldo = tilavuus;  // täyteen ja ylimäärä hukkaan!
